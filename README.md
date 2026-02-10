@@ -63,4 +63,4 @@ The `winequality-red.csv` dataset contains the following columns:
 This project is open-source and available under the [MIT License](LICENSE).
 
 ## Author
-Developed by SGcpu.
+Developed by [SGcpu](https://github.com/SGcpu).
