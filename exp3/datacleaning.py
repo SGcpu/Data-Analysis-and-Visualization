@@ -9,7 +9,7 @@ print(df2.info())
 #1
 df['Age'] = df['Age'].fillna(df['Age'].median())
 df['Income'] = df['Income'].fillna(df['Income'].mean())
-df2['PurchaseAmount'] = df['PurchaseAmount'].fillna(0)
+df2['PurchaseAmount'] = df2['PurchaseAmount'].fillna(0)
 
 #2
 df = df[(df['Age'] >= 0) & (df['Age']<=100)]
@@ -18,7 +18,7 @@ df = df[(df['Age'] >= 0) & (df['Age']<=100)]
 gender_mapping = {'MALE': 'Male', 'male': 'Male', 'M': 'Male', 'FEMALE': 'Female', 'female': 'Female', 'F': 'Female'}
 df['Gender'] = df['Gender'].replace(gender_mapping)
 
-df['ProductCategory'] = df['ProductCategory'].str.lower()
+df2['ProductCategory'] = df2['ProductCategory'].str.lower()
 
 #4
 df = df.drop_duplicates(subset='CustomerID')
@@ -35,11 +35,11 @@ plt.show()
 df['Income_EqualFreq'] = pd.qcut(df['Income'], q=4, labels=['Q1', 'Q2', 'Q3', 'Q4'])
 
 #7
-df['Z_Score'] = (df['PurchaseAmount']- df['PurchaseAmount'].mean()/df['PurchaseAmount'].std())
+df2['Z_Score'] = (df2['PurchaseAmount'] - df2['PurchaseAmount'].mean()) / df2['PurchaseAmount'].std()
 
-outliers = df[np.abs(df['Z_Score'])>3]
+outliers = df2[np.abs(df2['Z_Score']) > 3]
 print(outliers)
-df[np.abs(df['Z_Score'])<=3]
+df2[np.abs(df2['Z_Score']) <= 3]
 
 #9
 df['Age_normalized'] = (df['Age']-df['Age'].min())/(df['Age'].max()-df['Age'].min())
@@ -50,7 +50,7 @@ merged_df = pd.merge(df, df2, on='CustomerID', how='inner')
 
 #11
 avg_purchase = merged_df['PurchaseAmount'].mean()
-merged_df['HighSpender'] = np.where(merged_df['PurchaseAmount']>avg_purchase, 1, 0)
+merged_df['HighSpender'] = np.where(merged_df['PurchaseAmount'] > avg_purchase, 1, 0)
 
 merged_df = pd.get_dummies(merged_df, columns=['Gender'])
 
